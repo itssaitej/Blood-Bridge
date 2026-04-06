@@ -2,5 +2,5 @@ services:
   - type: web
     name: blood-bridge-backend
     rootDir: blood-donor-backend
-    buildCommand: ./mvnw clean install
+    buildCommand: chmod +x mvnw && ./mvnw clean install
     startCommand: java -jar target/*.jar
