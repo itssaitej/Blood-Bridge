@@ -1,32 +1,44 @@
 # 🩸 Blood Bridge App
 
-A full-stack web application to **search and manage blood donors**, built using **React + Spring Boot + JWT Authentication**.
+A full-stack web application to **search, manage, and track blood donors**, built using **React, Spring Boot, and JWT Authentication**.
 
 ---
 
 ## 🚀 Tech Stack
 
 * **Frontend:** React (Create React App)
-* **Backend:** Spring Boot
-* **Database:** H2 (default) / MySQL (optional)
+* **Backend:** Spring Boot (Java 17)
+* **Database:** H2 (in-memory, for development)
 * **Authentication:** JWT (JSON Web Token)
+* **Build Tool:** Maven
+* **Deployment (In Progress):**
+
+  * Backend → Render
+  * Frontend → Vercel
 
 ---
 
 ## ✨ Features
 
-* 🔐 Secure Login with JWT Authentication
+* 🔐 Secure Login & Registration using JWT
 * 🔍 Search donors by city & blood group
 * ➕ Add new donors
-* 🔒 Protected routes (only logged-in users can access)
-* 💻 Clean and responsive UI
+* ✏️ Edit donor details (**owner-only access**)
+* 🗑️ Delete donor (**owner-only access**)
+* 🔄 Toggle availability with donation tracking logic
+* 📅 Donation eligibility system (`lastDonationDate` → `nextEligibleDate`)
+* 🔒 Protected routes (JWT-based access)
+* 🎯 UI improvements:
+
+  * Hide edit/delete for non-owners
+  * Reset edit state on new search
 
 ---
 
 ## 📁 Project Structure
 
 ```
-blood-bridge/
+Blood-Bridge/
 │
 ├── blood-donor-backend/     # Spring Boot Backend
 ├── blood-donor-frontend/    # React Frontend
@@ -42,8 +54,8 @@ blood-bridge/
 ### 🔹 1. Clone the Repository
 
 ```
-git clone https://github.com/your-username/blood-bridge.git
-cd blood-bridge
+git clone https://github.com/itssaitej/Blood-Bridge.git
+cd Blood-Bridge
 ```
 
 ---
@@ -60,15 +72,12 @@ cd blood-donor-backend
 
 ### ✅ Default (Recommended – No setup required)
 
-The project uses **H2 in-memory database**, so it works instantly.
-
-No changes needed in `application.properties`.
+* Uses **H2 in-memory database**
+* Data resets on server restart
 
 ---
 
-### ⚙️ Optional (MySQL Setup)
-
-Update:
+### ⚙️ Optional (Production / MySQL)
 
 ```
 spring.datasource.url=jdbc:mysql://localhost:3306/your_db
@@ -84,7 +93,7 @@ spring.datasource.password=YOUR_DB_PASSWORD
 mvn spring-boot:run
 ```
 
-Server runs at:
+Backend runs at:
 
 ```
 http://localhost:8080
@@ -100,7 +109,7 @@ npm install
 npm start
 ```
 
-App runs at:
+Frontend runs at:
 
 ```
 http://localhost:3000
@@ -110,10 +119,10 @@ http://localhost:3000
 
 # 🔐 Authentication Flow
 
-1. User logs in using username & password
+1. User logs in with username & password
 2. Backend returns JWT token
-3. Token is stored in browser `localStorage`
-4. All protected API calls use:
+3. Token stored in `localStorage`
+4. All API requests include:
 
 ```
 Authorization: Bearer <token>
@@ -121,59 +130,11 @@ Authorization: Bearer <token>
 
 ---
 
-# 🧪 Testing the Application
+# 🧪 API Endpoints
 
 ---
 
-## 🔹 1. Web App Testing
-
----
-
-### ▶️ Login
-
-* Open: `http://localhost:3000/login`
-* Enter credentials:
-
-```
-Username: your_username
-Password: your_password
-```
-
----
-
-### 🔍 Search Donors
-
-* Navigate to Search page
-* Enter:
-
-  * City (e.g., Hyderabad)
-  * Blood Group (e.g., A+)
-* Click **Search**
-* View matching donors
-
----
-
-### ➕ Add Donor
-
-* Click **Add Donor**
-* Fill:
-
-  * Name
-  * City
-  * Blood Group
-  * Area
-  * Location
-  * Availability
-* Click **Add Donor**
-* Success message appears
-
----
-
-## 🔹 2. API Testing (Postman)
-
----
-
-### 🔐 Login API
+## 🔐 Login
 
 **POST** `/auth/login`
 
@@ -181,26 +142,9 @@ Password: your_password
 http://localhost:8080/auth/login
 ```
 
-#### Request Body:
-
-```json
-{
-  "username": "your_username",
-  "password": "your_password"
-}
-```
-
-#### Response:
-
-```json
-{
-  "token": "your_jwt_token"
-}
-```
-
 ---
 
-### 🔍 Search Donors API
+## 🔍 Search Donors
 
 **GET** `/donors/search`
 
@@ -208,58 +152,64 @@ http://localhost:8080/auth/login
 http://localhost:8080/donors/search?city=Hyderabad&bloodGroup=A%2B
 ```
 
-#### Headers:
-
-```
-Authorization: Bearer <your_token>
-```
-
 ---
 
-### ➕ Add Donor API
+## ➕ Add Donor
 
 **POST** `/donors`
 
-```
-http://localhost:8080/donors
-```
+---
 
-#### Headers:
+## ✏️ Edit Donor
 
-```
-Content-Type: application/json
-Authorization: Bearer <your_token>
-```
+**PUT** `/donors/{id}`
+(Only owner allowed)
 
-#### Request Body:
+---
 
-```json
-{
-  "username": "your_username",
-  "name": "Ram",
-  "bloodGroup": "B+",
-  "city": "Chennai",
-  "area": "T Nagar",
-  "location": "Near Bus Stand",
-  "available": true
-}
-```
+## 🗑️ Delete Donor
+
+**DELETE** `/donors/{id}`
+(Only owner allowed)
+
+---
+
+## 🔄 Toggle Availability
+
+* Automatically updates eligibility dates
 
 ---
 
 # ⚠️ Important Notes
 
-* Backend must be running before frontend
-* JWT token is required for all protected APIs
-* Default DB is **H2 (no setup required)**
-* If using MySQL, update credentials properly
-* Do NOT commit `node_modules` or `target` folders
+* Backend must run before frontend
+* JWT required for protected APIs
+* H2 DB is **non-persistent**
+* Do NOT commit:
+
+  * `target/`
+  * `node_modules/`
 
 ---
 
-# 📸 Screenshots (Optional)
+# 🌍 Deployment Status
 
-*I shall add screenshots here for better presentation soon*
+🚧 Currently deploying:
+
+* Backend → Render
+* Frontend → Vercel
+
+(Production URLs will be added soon)
+
+---
+
+# 🌟 Future Improvements
+
+* 🐘 PostgreSQL integration (production DB)
+* 🔐 Secure JWT storage (HttpOnly cookies)
+* 📍 Location-based donor search
+* 📱 Mobile responsiveness improvements
+* 📊 Dashboard for donor analytics
 
 ---
 
@@ -269,16 +219,6 @@ Authorization: Bearer <your_token>
 
 ---
 
-# 🌟 Future Improvements
+# ⭐ Support
 
-* ✏️ Edit donor
-* 🗑️ Delete donor
-* 🔔 Toast notifications
-* 🌍 Cloud deployment
-* 👤 User registration
-
----
-
-# ⭐ If you like this project
-
-Give it a star on GitHub ⭐
+If you like this project, give it a star ⭐ on GitHub!
