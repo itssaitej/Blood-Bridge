@@ -1,99 +1,88 @@
 # 🩸 Blood Bridge App
 
-A full-stack web application to **search, manage, and track blood donors**, built using **React, Spring Boot, and JWT Authentication**.
+🚀 This is a full-stack project with separate frontend and backend repositories.
+
+A full-stack web application to **search, add, and manage blood donors**, built using **React, Spring Boot, and JWT Authentication**.
 
 ---
 
-## 🚀 Tech Stack
+## 🔗 Related Repository
 
-* **Frontend:** React (Create React App)
-* **Backend:** Spring Boot (Java 17)
-* **Database:** H2 (in-memory, for development)
-* **Authentication:** JWT (JSON Web Token)
-* **Build Tool:** Maven
-* **Deployment (In Progress):**
+Backend API:
+https://github.com/itssaitej/Blood-Bridge-Backend
 
-  * Backend → Render
-  * Frontend → Vercel
+## 🚀 Live Demo
+
+* 🌐 Frontend (Vercel): https://your-frontend-url.vercel.app
+* 🧠 Backend (Railway): https://blood-bridge-backend-production.up.railway.app
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* React (Create React App)
+* JavaScript (ES6+)
+* CSS
+
+### Backend
+
+* Spring Boot
+* Spring Security + JWT Authentication
+* REST APIs
+
+### Database
+
+* H2 Database (in-memory)
+
+### Deployment
+
+* Frontend: Vercel
+* Backend: Railway
 
 ---
 
 ## ✨ Features
 
-* 🔐 Secure Login & Registration using JWT
-* 🔍 Search donors by city & blood group
-* ➕ Add new donors
-* ✏️ Edit donor details (**owner-only access**)
-* 🗑️ Delete donor (**owner-only access**)
-* 🔄 Toggle availability with donation tracking logic
-* 📅 Donation eligibility system (`lastDonationDate` → `nextEligibleDate`)
-* 🔒 Protected routes (JWT-based access)
-* 🎯 UI improvements:
-
-  * Hide edit/delete for non-owners
-  * Reset edit state on new search
+* 🔐 User Authentication (Login/Register using JWT)
+* 🔍 Search Blood Donors
+* ➕ Add New Donors
+* 👤 User-specific donor management
+* 🌐 Fully deployed (Frontend + Backend)
 
 ---
 
-## 📁 Project Structure
+## 📂 Project Structure
 
 ```
 Blood-Bridge/
 │
-├── blood-donor-backend/     # Spring Boot Backend
-├── blood-donor-frontend/    # React Frontend
-└── README.md
+├── blood-donor-frontend/   # React App
+└── blood-donor-backend/    # Spring Boot API
 ```
 
 ---
 
-## ⚙️ Setup Instructions
+## ⚙️ How to Run Locally
 
----
+### 🔧 Backend Setup
 
-### 🔹 1. Clone the Repository
+1. Navigate to backend folder:
 
-```
-git clone https://github.com/itssaitej/Blood-Bridge.git
-cd Blood-Bridge
-```
-
----
-
-# 🧩 Backend Setup (Spring Boot)
-
-```
+```bash
 cd blood-donor-backend
 ```
 
----
+2. Run the application:
 
-## 🗄️ Database Configuration
-
-### ✅ Default (Recommended – No setup required)
-
-* Uses **H2 in-memory database**
-* Data resets on server restart
-
----
-
-### ⚙️ Optional (Production / MySQL)
-
-```
-spring.datasource.url=jdbc:mysql://localhost:3306/your_db
-spring.datasource.username=YOUR_DB_USERNAME
-spring.datasource.password=YOUR_DB_PASSWORD
+```bash
+./mvnw spring-boot:run
 ```
 
----
+(or use your IDE)
 
-## ▶️ Run Backend
-
-```
-mvn spring-boot:run
-```
-
-Backend runs at:
+3. Backend runs at:
 
 ```
 http://localhost:8080
@@ -101,15 +90,27 @@ http://localhost:8080
 
 ---
 
-# 🌐 Frontend Setup (React)
+### 💻 Frontend Setup
 
-```
+1. Navigate to frontend folder:
+
+```bash
 cd blood-donor-frontend
+```
+
+2. Install dependencies:
+
+```bash
 npm install
+```
+
+3. Start the app:
+
+```bash
 npm start
 ```
 
-Frontend runs at:
+4. Frontend runs at:
 
 ```
 http://localhost:3000
@@ -117,108 +118,73 @@ http://localhost:3000
 
 ---
 
-# 🔐 Authentication Flow
+## 🔑 API Endpoints
 
-1. User logs in with username & password
-2. Backend returns JWT token
-3. Token stored in `localStorage`
-4. All API requests include:
+### Authentication
 
-```
-Authorization: Bearer <token>
-```
+* POST `/auth/register`
+* POST `/auth/login`
 
----
+### Donors
 
-# 🧪 API Endpoints
+* GET `/donors`
+* POST `/donors`
 
 ---
 
-## 🔐 Login
+## 🔐 Environment Setup (Important)
 
-**POST** `/auth/login`
+### Frontend API URL
 
+Update API base URL in frontend:
+
+```js
+const BASE_URL = "http://localhost:8080";
 ```
-http://localhost:8080/auth/login
-```
 
----
+For production:
 
-## 🔍 Search Donors
-
-**GET** `/donors/search`
-
-```
-http://localhost:8080/donors/search?city=Hyderabad&bloodGroup=A%2B
+```js
+const BASE_URL = "https://blood-bridge-backend-production.up.railway.app";
 ```
 
 ---
 
-## ➕ Add Donor
+## 🧪 How to Test the App
 
-**POST** `/donors`
-
----
-
-## ✏️ Edit Donor
-
-**PUT** `/donors/{id}`
-(Only owner allowed)
+1. Register a new user
+2. Login using credentials
+3. Add a donor
+4. Search donors
+5. Refresh page → data fetched again from backend
 
 ---
 
-## 🗑️ Delete Donor
+## ⚠️ Notes
 
-**DELETE** `/donors/{id}`
-(Only owner allowed)
-
----
-
-## 🔄 Toggle Availability
-
-* Automatically updates eligibility dates
+* H2 database is in-memory → data resets on backend restart
+* JWT token is stored in browser `localStorage`
+* CORS is enabled for frontend-backend communication
 
 ---
 
-# ⚠️ Important Notes
+## 🚀 Future Improvements
 
-* Backend must run before frontend
-* JWT required for protected APIs
-* H2 DB is **non-persistent**
-* Do NOT commit:
-
-  * `target/`
-  * `node_modules/`
+* ✏️ Edit/Delete donors
+* 🔍 Advanced filtering (city, blood group)
+* 📱 Responsive UI
+* 🔐 Role-based authentication
+* 🗄️ Switch to MySQL/PostgreSQL
 
 ---
 
-# 🌍 Deployment Status
-
-🚧 Currently deploying:
-
-* Backend → Render
-* Frontend → Vercel
-
-(Production URLs will be added soon)
-
----
-
-# 🌟 Future Improvements
-
-* 🐘 PostgreSQL integration (production DB)
-* 🔐 Secure JWT storage (HttpOnly cookies)
-* 📍 Location-based donor search
-* 📱 Mobile responsiveness improvements
-* 📊 Dashboard for donor analytics
-
----
-
-# 👨‍💻 Author
+## 👨‍💻 Author
 
 **Sai Tej**
+GitHub: https://github.com/itssaitej
 
 ---
 
-# ⭐ Support
+## ⭐ If you like this project
 
-If you like this project, give it a star ⭐ on GitHub!
+Give it a ⭐ on GitHub and feel free to fork it!
