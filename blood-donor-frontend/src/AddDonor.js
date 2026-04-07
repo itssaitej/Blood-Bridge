@@ -30,7 +30,7 @@ function AddDonor() {
   const username = localStorage.getItem("username"); // ✅ ADD THIS
  
   try {
-    const response = await fetch("http://localhost:8080/donors", {
+    const response = await fetch("https://blood-bridge-backend-production.up.railway.app/donors", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
