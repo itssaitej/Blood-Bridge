@@ -78,6 +78,15 @@ localStorage.setItem("name", data.name);
         Login
       </button>
     </form>
+           <p>
+       Don't have an account?{" "}
+      <span
+         style={{ color: "blue", cursor: "pointer" }}
+         onClick={() => navigate("/register")}
+      >
+        Register here
+      </span>
+    </p>
     </div>
     </div>
   );
