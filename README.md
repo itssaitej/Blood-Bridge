@@ -11,180 +11,273 @@ A full-stack web application to **search, add, and manage blood donors**, built 
 Backend API:
 https://github.com/itssaitej/Blood-Bridge-Backend
 
-## 🚀 Live Demo
+## 🌐 Live Application
 
-* 🌐 Frontend (Vercel): https://your-frontend-url.vercel.app
-* 🧠 Backend (Railway): https://blood-bridge-backend-production.up.railway.app
+* 🔗 **Frontend (Vercel):** https://blood-bridge-neon.vercel.app
+* 🔗 **Backend (Railway):** https://blood-bridge-backend-production.up.railway.app
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Tech Stack
 
-### Frontend
+* **Frontend:** React (Create React App)
+* **Backend:** Spring Boot (Java 17)
+* **Database:** H2 (in-memory, for now)
+* **Authentication:** JWT (JSON Web Token)
+* **Deployment:**
 
-* React (Create React App)
-* JavaScript (ES6+)
-* CSS
-
-### Backend
-
-* Spring Boot
-* Spring Security + JWT Authentication
-* REST APIs
-
-### Database
-
-* H2 Database (in-memory)
-
-### Deployment
-
-* Frontend: Vercel
-* Backend: Railway
+  * Backend → Railway
+  * Frontend → Vercel
 
 ---
 
 ## ✨ Features
 
-* 🔐 User Authentication (Login/Register using JWT)
-* 🔍 Search Blood Donors
-* ➕ Add New Donors
-* 👤 User-specific donor management
-* 🌐 Fully deployed (Frontend + Backend)
+* 🔐 JWT-based Login & Authentication
+* 🔍 Search donors by city & blood group
+* ➕ Add new donors
+* ✏️ Edit donor (**only owner can edit**)
+* 🗑️ Delete donor (**only owner can delete**)
+* 🔄 Availability toggle with donation eligibility logic
+* 📅 Smart donation tracking:
+
+  * `lastDonationDate`
+  * `nextEligibleDate`
+* 🔒 Protected routes
+* 🎯 Clean UI with conditional rendering
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
-```
+```plaintext
 Blood-Bridge/
 │
-├── blood-donor-frontend/   # React App
-└── blood-donor-backend/    # Spring Boot API
+├── blood-donor-backend/     # Spring Boot Backend
+├── blood-donor-frontend/    # React Frontend
+└── README.md
 ```
 
 ---
 
-## ⚙️ How to Run Locally
+# 🧪 How to Test the App (Live)
 
-### 🔧 Backend Setup
+---
 
-1. Navigate to backend folder:
+## 🔹 Step 1: Open the App
 
-```bash
-cd blood-donor-backend
-```
+👉 https://blood-bridge-neon.vercel.app
 
-2. Run the application:
+---
 
-```bash
-./mvnw spring-boot:run
-```
+## 🔹 Step 2: Register a New User
 
-(or use your IDE)
+Currently, user registration is **not available via the UI**.
 
-3. Backend runs at:
+To create a new account, use an API tool like **Postman** or **Thunder Client**.
 
-```
-http://localhost:8080
+---
+
+### 🔐 Register API
+
+**POST** `/auth/register`
+
+```plaintext
+https://blood-bridge-backend-production.up.railway.app/auth/register
 ```
 
 ---
 
-### 💻 Frontend Setup
+### 📦 Request Body
 
-1. Navigate to frontend folder:
-
-```bash
-cd blood-donor-frontend
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Start the app:
-
-```bash
-npm start
-```
-
-4. Frontend runs at:
-
-```
-http://localhost:3000
+```json
+{
+  "username": "testuser",
+  "password": "12345",
+  "name": "testname",
+  "bloodGroup": "A+",
+  "city": "Chennai",
+  "area": "Electronic City",
+  "location": "Near OU",
+  "available": true
+}
 ```
 
 ---
 
-## 🔑 API Endpoints
+### ✅ Response
 
-### Authentication
-
-* POST `/auth/register`
-* POST `/auth/login`
-
-### Donors
-
-* GET `/donors`
-* POST `/donors`
-
----
-
-## 🔐 Environment Setup (Important)
-
-### Frontend API URL
-
-Update API base URL in frontend:
-
-```js
-const BASE_URL = "http://localhost:8080";
-```
-
-For production:
-
-```js
-const BASE_URL = "https://blood-bridge-backend-production.up.railway.app";
+```json
+{
+  "message": "User + Donor registered successfully"
+}
 ```
 
 ---
 
-## 🧪 How to Test the App
+### ⚠️ After Registration
 
-1. Register a new user
-2. Login using credentials
-3. Add a donor
-4. Search donors
-5. Refresh page → data fetched again from backend
+* Use the same credentials to log in via the web app:
+
+👉 https://blood-bridge-neon.vercel.app
 
 ---
 
-## ⚠️ Notes
+### 💡 Tip
 
-* H2 database is in-memory → data resets on backend restart
-* JWT token is stored in browser `localStorage`
-* CORS is enabled for frontend-backend communication
+You only need to register once — after that, login works normally from the UI.
 
----
 
-## 🚀 Future Improvements
+## 🔹 Step 3: Login
 
-* ✏️ Edit/Delete donors
-* 🔍 Advanced filtering (city, blood group)
-* 📱 Responsive UI
-* 🔐 Role-based authentication
-* 🗄️ Switch to MySQL/PostgreSQL
+* Login with existing credentials
+* After login, JWT token is stored automatically
 
 ---
 
-## 👨‍💻 Author
+## 🔹 Step 3: Search Donors
+
+* Enter:
+
+  * City → e.g. `Hyderabad`
+  * Blood Group → e.g. `A+`
+* Click **Search**
+* View results instantly
+
+---
+
+## 🔹 Step 4: Add a Donor
+
+* Click **Add Donor**
+* Fill details:
+
+  * Name
+  * City
+  * Blood Group
+  * Area
+  * Location
+  * Availability
+* Submit → donor appears in search
+
+---
+
+## 🔹 Step 5: Edit / Delete (Owner Only)
+
+* If you added the donor:
+
+  * ✏️ Edit button will be visible
+  * 🗑️ Delete option available
+* Other users → cannot edit/delete
+
+---
+
+## 🔹 Step 6: Availability Logic
+
+* Toggle availability after donation
+* System calculates:
+
+  * Next eligible donation date automatically
+
+---
+
+# 🔌 API Testing (Production)
+
+Base URL:
+
+```plaintext
+https://blood-bridge-backend-production.up.railway.app
+```
+
+---
+
+## 🔐 Login API
+
+**POST** `/auth/login`
+
+```plaintext
+https://blood-bridge-backend-production.up.railway.app/auth/login
+```
+
+### Request Body:
+
+```json
+{
+  "username": "testuser",
+  "password": "testpass"
+}
+```
+
+---
+
+## 🔍 Search Donors
+
+```plaintext
+GET /donors/search?city=Hyderabad&bloodGroup=A%2B
+```
+
+### Full URL:
+
+```plaintext
+https://blood-bridge-backend-production.up.railway.app/donors/search?city=Hyderabad&bloodGroup=A%2B
+```
+
+### Headers:
+
+```plaintext
+Authorization: Bearer <your_token>
+```
+
+---
+
+## ➕ Add Donor
+
+```plaintext
+POST /donors
+```
+
+### Headers:
+
+```plaintext
+Content-Type: application/json
+Authorization: Bearer <your_token>
+```
+
+---
+
+# ⚠️ Important Notes
+
+* Backend may take **20–40 seconds** on first request (Railway cold start)
+* H2 database → data resets on restart
+* JWT required for protected APIs
+* CORS is configured for deployed frontend
+
+---
+
+# 🌍 Deployment Details
+
+* Backend deployed on Railway
+* Frontend deployed on Vercel
+* Backend URL configured in frontend API calls
+* CORS configured to allow frontend domain
+
+---
+
+# 🌟 Future Improvements
+
+* 🐘 PostgreSQL (persistent database)
+* 🔐 HttpOnly cookies for JWT
+* 📍 Location-based donor filtering
+* 📊 Admin dashboard
+* 📱 Mobile optimization
+
+---
+
+# 👨‍💻 Author
 
 **Sai Tej**
-GitHub: https://github.com/itssaitej
 
 ---
 
-## ⭐ If you like this project
+# ⭐ Support
 
-Give it a ⭐ on GitHub and feel free to fork it!
+If you like this project, give it a star ⭐ on GitHub!
