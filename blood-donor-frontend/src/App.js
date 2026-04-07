@@ -6,7 +6,7 @@ import Login from "./Login";
 import Search from "./Search";
 import "./App.css";
 import AddDonor from "./AddDonor";
-
+import Register from "./Register";
 //import { useNavigate } from "react-router-dom";
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
     )}
       
       <Routes>
-
+        <Route path="/register" element={<Register />} />
         <Route
            path="/dashboard"
            element={
