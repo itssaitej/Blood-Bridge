@@ -21,7 +21,7 @@ function Search() {
     const delay = new Promise((resolve) => setTimeout(resolve, 3000));
 
     const fetchData = fetch(
-      `http://localhost:8080/donors/search?city=${encodeURIComponent(city)}&bloodGroup=${encodeURIComponent(bloodGroup)}`,
+      `https://blood-bridge-backend-production.up.railway.app/donors/search?city=${encodeURIComponent(city)}&bloodGroup=${encodeURIComponent(bloodGroup)}`,
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -59,7 +59,7 @@ const handleUpdate = async () => {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/donors/${editingDonor.id}`,
+      `https://blood-bridge-backend-production.up.railway.app/donors/${editingDonor.id}`,
       {
         method: "PUT",
         headers: {
@@ -93,7 +93,7 @@ const handleDelete = async (id) => {
   if (!confirmDelete) return;
 
   try {
-    const response = await fetch(`http://localhost:8080/donors/${id}`, {
+    const response = await fetch(`https://blood-bridge-backend-production.up.railway.app/donors/${id}`, {
       method: "DELETE",
       headers: 
       {
