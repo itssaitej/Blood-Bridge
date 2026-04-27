@@ -72,14 +72,14 @@ Blood-Bridge/
 
 ## 🔹 Step 2: Register a New User
 
-Currently, user registration is **not available via the UI**.
 
-To create a new account, use an API tool like **Postman** or **Thunder Client**.
+To create a new account, you can use an API tool like **Postman** or **Thunder Client** too.
 
 ---
 
 ### 🔐 Register API
 
+In Postman: 
 **POST** `/auth/register`
 
 ```plaintext
