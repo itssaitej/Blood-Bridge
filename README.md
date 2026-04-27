@@ -180,6 +180,38 @@ You only need to register once — after that, login works normally from the UI.
 
 ---
 
+# 📸 Screenshots
+
+## Login Page
+![Login](assets/screenshots/LoginPage.png)
+
+## Register Page
+![Register](assets/screenshots/RegisterPage.png)
+
+## Dashboard
+![Dashboard](assets/screenshots/HomePage.png)
+
+## Add Donor
+![Add Donor](assets/screenshots/AddDonorPage.png)
+
+## Donor Added Successfully
+![Success](assets/screenshots/DonorAddedSuccesfullyPage.png)
+
+## Search Donors
+![Search](assets/screenshots/SearchedDonors.png)
+
+## Edit Donor
+![Edit](assets/screenshots/EditOptionVisiblePAge.png)
+
+## Updating Donor
+![Updating](assets/screenshots/EditingPage.png)
+
+## Donor Updated
+![Updated](assets/screenshots/EditUpdatedPage.png)
+
+## API Testing in Postman
+![Postman](assets/screenshots/PostmanDonors.png)
+
 # 🔌 API Testing (Production)
 
 Base URL:
