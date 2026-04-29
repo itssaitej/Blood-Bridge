@@ -18,36 +18,39 @@ function Login({ setIsLoggedIn })
   }, []);
 
   const handleLogin = async () => {
-    
-    const response = await fetch("https://blood-bridge-backend-production.up.railway.app/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ username, password })
-    });
+  try {
+    const response = await fetch(
+      "https://blood-bridge-backend-production.up.railway.app/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      }
+    );
 
-    const text = await response.text();
+    const data = await response.json();
 
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      alert("Login failed: " + text);
+    // 🚨 Check login success
+    if (!response.ok) {
+      alert(data.error || "Invalid username or password");
       return;
     }
 
+    // ✅ Save only on success
     localStorage.setItem("token", data.token);
-localStorage.setItem("username", data.username);
-localStorage.setItem("name", data.name);
+    localStorage.setItem("username", data.username);
+    localStorage.setItem("name", data.name || data.username);
 
-     setIsLoggedIn(true);
-     navigate("/dashboard");;
-
+    setIsLoggedIn(true);
     alert("Login successful!");
-    
-  };
+    navigate("/dashboard");
 
+  } catch (error) {
+    alert("Server error. Please try again.");
+  }
+};
   const handleSubmit = (e) => {
     e.preventDefault(); // prevent page reload
     handleLogin();
