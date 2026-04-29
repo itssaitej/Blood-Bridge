@@ -45,7 +45,9 @@ function Login({ setIsLoggedIn })
 
     setIsLoggedIn(true);
     alert("Login successful!");
-    navigate("/dashboard");
+    setTimeout(() => {
+  navigate("/dashboard");
+}, 1000);
 
   } catch (error) {
     alert("Server error. Please try again.");
